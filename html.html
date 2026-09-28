@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethereal Nexus | Advanced Immersive Experience</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                        mono: ['"Fira Code"', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-overlay: linear-gradient(135deg, rgba(10, 15, 30, 0.82), rgba(20, 25, 45, 0.9));
+            --bg-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=2200&q=80');
+            --accent-glow: rgba(99, 102, 241, 0.4);
+        }
+
+        body.mood-emerald {
+            --bg-overlay: linear-gradient(135deg, rgba(5, 25, 20, 0.85), rgba(10, 40, 30, 0.92));
+            --bg-image: url('https://images.unsplash.com/photo-1511497584788-876761142212?auto=format&fit=crop&w=2200&q=80');
+            --accent-glow: rgba(16, 185, 129, 0.4);
+        }
+
+        body.mood-sunset {
+            --bg-overlay: linear-gradient(135deg, rgba(35, 10, 25, 0.85), rgba(45, 20, 20, 0.92));
+            --bg-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2200&q=80');
+            --accent-glow: rgba(244, 63, 94, 0.4);
+        }
+
+        body.mood-cyber {
+            --bg-overlay: linear-gradient(135deg, rgba(15, 5, 35, 0.88), rgba(25, 10, 50, 0.94));
+            --bg-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=2200&q=80');
+            --accent-glow: rgba(168, 85, 247, 0.4);
+        }
+
+        body {
+            background-image: var(--bg-overlay), var(--bg-image);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            transition: background 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(10, 15, 30, 0.5);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Advanced Glassmorphism */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 30px 60px -12px var(--accent-glow);
+        }
+
+        /* Glowing Border Animation */
+        @keyframes borderGlow {
+            0%, 100% { border-color: rgba(99, 102, 241, 0.3); }
+            50% { border-color: rgba(236, 72, 153, 0.6); }
+        }
+
+        .animated-border {
+            animation: borderGlow 6s infinite ease-in-out;
+        }
+
+        /* Floating Animation */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1deg); }
+        }
+
+        .floating {
+            animation: floatSlow 5s ease-in-out infinite;
+        }
+
+        /* Shimmer Text effect */
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .shimmer-text {
+            background: linear-gradient(90deg, #ffffff 0%, #a5b4fc 25%, #f472b6 50%, #a5b4fc 75%, #ffffff 100%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            animation: shimmer 6s linear infinite;
+        }
+
+        .text-glow {
+            text-shadow: 0 0 35px rgba(129, 140, 248, 0.6);
+        }
+    </style>
+</head>
+<body class="text-slate-100 font-sans antialiased selection:bg-indigo-500 selection:text-white">
+
+    <nav class="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 py-4 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex items-center justify-between glass-card rounded-2xl px-5 py-3">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg floating">
+                    <i class="fa-solid fa-atom text-white text-lg"></i>
+                </div>
+                <div>
+                    <span class="font-serif font-bold text-xl tracking-wide shimmer-text">Ethereal Nexus</span>
+                    <span class="block text-[10px] uppercase font-mono text-indigo-300 tracking-wider">Advanced Edition</span>
+                </div>
+            </div>
+            
+            <div class="hidden lg:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="#hero" class="hover:text-indigo-300 transition-colors">Core</a>
+                <a href="#features" class="hover:text-indigo-300 transition-colors">Architecture</a>
+                <a href="#playground" class="hover:text-indigo-300 transition-colors">Interactive Lab</a>
+                <a href="#analytics" class="hover:text-indigo-300 transition-colors">Telemetry</a>
+            </div>
+
+            <!-- Mood Switcher -->
+            <div class="flex items-center space-x-2 bg-black/30 p-1.5 rounded-xl border border-white/10">
+                <button onclick="setMood('cosmic')" title="Cosmic Blue" class="w-7 h-7 rounded-lg bg-indigo-600 hover:scale-110 transition-transform cursor-pointer shadow-sm"></button>
+                <button onclick="setMood('emerald')" title="Emerald Forest" class="w-7 h-7 rounded-lg bg-emerald-600 hover:scale-110 transition-transform cursor-pointer shadow-sm"></button>
+                <button onclick="setMood('sunset')" title="Warm Sunset" class="w-7 h-7 rounded-lg bg-rose-600 hover:scale-110 transition-transform cursor-pointer shadow-sm"></button>
+                <button onclick="setMood('cyber')" title="Cyber Purple" class="w-7 h-7 rounded-lg bg-purple-600 hover:scale-110 transition-transform cursor-pointer shadow-sm"></button>
+            </div>
+        </div>
+    </nav>
+
+    <header id="hero" class="pt-40 pb-24 px-6 relative overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-indigo-500/10 via-purple-500/10 to-pink-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass-card border border-white/20 text-indigo-300 text-xs font-mono uppercase tracking-widest mb-6 animated-border">
+                <i class="fa-solid fa-sparkles animate-spin text-pink-400" style="animation-duration: 8s;"></i>
+                <span>Next-Gen Web Framework</span>
+            </div>
+
+            <h1 class="font-serif text-4xl sm:text-7xl font-extrabold tracking-tight mb-6 leading-tight text-glow">
+                Architecting the <span class="shimmer-text italic">Infinite Horizon</span>
+            </h1>
+
+            <p class="text-slate-300 text-lg sm:text-xl font-light max-w-2xl mx-auto mb-10 leading-relaxed">
+                Experience high-performance visual formatting, dynamic theme mood switching, ultra-crisp custom borders, and fluid glassmorphism layers.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#playground" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-semibold hover:opacity-90 transition-all shadow-xl shadow-indigo-500/30 flex items-center justify-center space-x-2">
+                    <span>Launch Interactive Lab</span>
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                </a>
+                <a href="#features" class="w-full sm:w-auto px-8 py-4 rounded-2xl glass-card text-white font-semibold hover:bg-white/10 transition-all flex items-center justify-center space-x-2 border border-white/20">
+                    <span>Explore Specifications</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section id="features" class="py-24 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-20">
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold mb-4 text-white">Advanced Design Matrix</h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mx-auto rounded-full mb-4"></div>
+                <p class="text-slate-300 text-base font-light">Engineered with multi-layered CSS variables, hardware-accelerated filters, and responsive grids.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature Card 1 -->
+                <div class="glass-card rounded-3xl p-8 relative overflow-hidden group animated-border">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl group-hover:bg-indigo-500/20 transition-all"></div>
+                    <div class="w-16 h-16 rounded-2xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-indigo-300 text-2xl mb-6 shadow-inner floating">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold mb-3 text-indigo-200">Dynamic Mood Engine</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed font-light mb-6">
+                        Instantly shift website lighting, atmosphere, and background overlays in real-time with instant DOM variable injection.
+                    </p>
+                    <div class="flex items-center space-x-2 font-mono text-xs text-indigo-300">
+                        <i class="fa-solid fa-code"></i>
+                        <span>CSS Variables & DOM Class API</span>
+                    </div>
+                </div>
+
+                <!-- Feature Card 2 -->
+                <div class="glass-card rounded-3xl p-8 relative overflow-hidden group animated-border" style="animation-delay: 2s;">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl group-hover:bg-purple-500/20 transition-all"></div>
+                    <div class="w-16 h-16 rounded-2xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-300 text-2xl mb-6 shadow-inner floating" style="animation-delay: 1s;">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold mb-3 text-purple-200">Gleaming Glassmorphism</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed font-light mb-6">
+                        Crafted using high-blur backdrops, multi-tone glowing borders, and reactive hover depth elevation matrices.
+                    </p>
+                    <div class="flex items-center space-x-2 font-mono text-xs text-purple-300">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <span>backdrop-filter: blur(16px)</span>
+                    </div>
+                </div>
+
+                <!-- Feature Card 3 -->
+                <div class="glass-card rounded-3xl p-8 relative overflow-hidden group animated-border" style="animation-delay: 4s;">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-pink-500/10 rounded-full blur-3xl group-hover:bg-pink-500/20 transition-all"></div>
+                    <div class="w-16 h-16 rounded-2xl bg-pink-500/20 border border-pink-500/40 flex items-center justify-center text-pink-300 text-2xl mb-6 shadow-inner floating" style="animation-delay: 2s;">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold mb-3 text-pink-200">Fluid Responsive Grid</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed font-light mb-6">
+                        Seamlessly adapts from mobile viewports to ultra-wide displays with strict fluid proportions and zero horizontal overflow.
+                    </p>
+                    <div class="flex items-center space-x-2 font-mono text-xs text-pink-300">
+                        <i class="fa-solid fa-mobile-screen-button"></i>
+                        <span>Tailwind CSS Breakpoints</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="playground" class="py-24 px-6 bg-black/20">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold mb-4 text-white">Interactive Customization Lab</h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-pink-500 to-indigo-500 mx-auto rounded-full mb-4"></div>
+                <p class="text-slate-300 text-base font-light">Test advanced card border radius and glow intensity parameters in real-time.</p>
+            </div>
+
+            <div class="glass-card rounded-3xl p-8 sm:p-12 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                <!-- Controls -->
+                <div class="space-y-6">
+                    <div>
+                        <label class="block font-serif text-lg font-semibold mb-2 text-indigo-200">Border Radius Control</label>
+                        <input type="range" id="radiusRange" min="12" max="48" value="24" oninput="updateCardStyle()" class="w-full accent-indigo-500 cursor-pointer">
+                        <div class="flex justify-between text-xs font-mono text-slate-400 mt-1">
+                            <span>12px (Sharp)</span>
+                            <span>48px (Pill)</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-serif text-lg font-semibold mb-2 text-indigo-200">Glass Blur Intensity</label>
+                        <input type="range" id="blurRange" min="4" max="32" value="16" oninput="updateCardStyle()" class="w-full accent-purple-500 cursor-pointer">
+                        <div class="flex justify-between text-xs font-mono text-slate-400 mt-1">
+                            <span>4px (Clear)</span>
+                            <span>32px (Deep Frosted)</span>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-black/40 border border-white/10 font-mono text-xs text-slate-300 space-y-1">
+                        <div class="text-indigo-300 font-bold">// Active CSS Properties</div>
+                        <div id="cssOutput">border-radius: 24px; backdrop-filter: blur(16px);</div>
+                    </div>
+                </div>
+
+                <!-- Preview Box -->
+                <div class="flex items-center justify-center p-6">
+                    <div id="previewCard" class="w-full max-w-md p-8 glass-card text-center transition-all duration-300 animated-border" style="border-radius: 24px;">
+                        <div class="w-12 h-12 mx-auto rounded-2xl bg-gradient-to-tr from-indigo-500 to-pink-500 flex items-center justify-center text-white mb-4 shadow-lg floating">
+                            <i class="fa-solid fa-cube text-xl"></i>
+                        </div>
+                        <h4 class="font-serif text-xl font-bold mb-2 text-white">Live Preview Element</h4>
+                        <p class="text-slate-300 text-sm font-light mb-4">Observe how adjusting sliders instantly modifies border curvature and backdrop filter blur.</p>
+                        <span class="inline-block px-4 py-1.5 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-mono border border-indigo-500/30">
+                            Interactive Active
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="analytics" class="py-20 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div class="glass-card rounded-2xl p-6 animated-border">
+                <div class="font-serif text-3xl sm:text-4xl font-bold text-indigo-300 mb-1">99.9%</div>
+                <div class="text-xs font-mono uppercase tracking-wider text-slate-400">Render Efficiency</div>
+            </div>
+            <div class="glass-card rounded-2xl p-6 animated-border" style="animation-delay: 1s;">
+                <div class="font-serif text-3xl sm:text-4xl font-bold text-purple-300 mb-1">60 FPS</div>
+                <div class="text-xs font-mono uppercase tracking-wider text-slate-400">Animation Smoothness</div>
+            </div>
+            <div class="glass-card rounded-2xl p-6 animated-border" style="animation-delay: 2s;">
+                <div class="font-serif text-3xl sm:text-4xl font-bold text-pink-300 mb-1">4 Modes</div>
+                <div class="text-xs font-mono uppercase tracking-wider text-slate-400">Atmospheric Themes</div>
+            </div>
+            <div class="glass-card rounded-2xl p-6 animated-border" style="animation-delay: 3s;">
+                <div class="font-serif text-3xl sm:text-4xl font-bold text-emerald-300 mb-1">Zero Latency</div>
+                <div class="text-xs font-mono uppercase tracking-wider text-slate-400">External CSS Pipeline</div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-16 px-6 border-t border-white/10 bg-black/40 text-center">
+        <div class="max-w-4xl mx-auto mb-12">
+            <div class="glass-card rounded-3xl p-8 sm:p-12 relative overflow-hidden border border-white/20">
+                <h3 class="font-serif text-2xl sm:text-4xl font-bold mb-4 text-white">Stay Synchronized</h3>
+                <p class="text-slate-300 text-sm sm:text-base font-light max-w-lg mx-auto mb-8">
+                    Receive direct updates on advanced glassmorphism components, design tokens, and CSS animations.
+                </p>
+                <form onsubmit="event.preventDefault(); showNotice();" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                    <input type="email" required placeholder="Enter developer email..." class="flex-grow px-5 py-4 rounded-2xl bg-white/10 border border-white/20 text-white placeholder-slate-400 focus:outline-none focus:border-indigo-400 text-sm font-mono">
+                    <button type="submit" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold hover:opacity-90 transition-all shadow-lg text-sm cursor-pointer whitespace-nowrap">
+                        Subscribe
+                    </button>
+                </form>
+                <div id="notice" class="hidden mt-4 text-emerald-400 text-sm font-mono">
+                    <i class="fa-solid fa-circle-check mr-2"></i> Successfully subscribed to developer stream!
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-mono">
+            <div>Ethereal Nexus &bull; Advanced Immersive Framework &copy; 2026</div>
+            <div class="flex space-x-6 text-base">
+                <a href="#" class="hover:text-indigo-300 transition-colors"><i class="fa-brands fa-github"></i></a>
+                <a href="#" class="hover:text-indigo-300 transition-colors"><i class="fa-brands fa-discord"></i></a>
+                <a href="#" class="hover:text-indigo-300 transition-colors"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mood Switcher Function
+        function setMood(mood) {
+            document.body.className = document.body.className.replace(/mood-\S+/g, '');
+            if (mood !== 'cosmic') {
+                document.body.classList.add('mood-' + mood);
+            }
+        }
+
+        // Interactive Lab Slider Function
+        function updateCardStyle() {
+            const radius = document.getElementById('radiusRange').value;
+            const blur = document.getElementById('blurRange').value;
+            const card = document.getElementById('previewCard');
+            const output = document.getElementById('cssOutput');
+
+            card.style.borderRadius = radius + 'px';
+            card.style.backdropFilter = `blur(${blur}px)`;
+            card.style.webkitBackdropFilter = `blur(${blur}px)`;
+
+            output.textContent = `border-radius: ${radius}px; backdrop-filter: blur(${blur}px);`;
+        }
+
+        // Notification Message Box
+        function showNotice() {
+            const notice = document.getElementById('notice');
+            notice.classList.remove('hidden');
+            setTimeout(() => {
+                notice.classList.add('hidden');
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
